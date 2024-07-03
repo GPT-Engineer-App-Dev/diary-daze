@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { new-image } from "@/components/ui/image";
+import Image from "next/image";
 
 const About = () => {
   return (
@@ -14,7 +14,7 @@ const About = () => {
             <CardTitle>Personal Background</CardTitle>
           </CardHeader>
           <CardContent>
-            <new-image src="/images/profile.jpg" alt="Profile Picture" className="w-32 h-32 rounded-full mx-auto" />
+            <Image src="/images/profile.jpg" alt="Profile Picture" width={128} height={128} className="w-32 h-32 rounded-full mx-auto" />
             <p className="mt-4">Detailed introduction and personal background...</p>
           </CardContent>
         </Card>
