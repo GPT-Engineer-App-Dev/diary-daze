@@ -6,9 +6,9 @@ import { Textarea } from "@/components/ui/textarea";
 
 const Blog = () => {
   const [posts, setPosts] = useState([
-    { title: "Post Title 1", content: "Short excerpt of the blog post..." },
-    { title: "Post Title 2", content: "Short excerpt of the blog post..." },
-    { title: "Post Title 3", content: "Short excerpt of the blog post..." },
+    { id: 1, title: "Post Title 1", content: "Short excerpt of the blog post..." },
+    { id: 2, title: "Post Title 2", content: "Short excerpt of the blog post..." },
+    { id: 3, title: "Post Title 3", content: "Short excerpt of the blog post..." },
   ]);
 
   const [newPost, setNewPost] = useState({ title: "", content: "" });
@@ -20,8 +20,13 @@ const Blog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPosts((prevPosts) => [...prevPosts, newPost]);
+    const newPostWithId = { ...newPost, id: Date.now() };
+    setPosts((prevPosts) => [...prevPosts, newPostWithId]);
     setNewPost({ title: "", content: "" });
+  };
+
+  const handleDelete = (id) => {
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
   };
 
   return (
@@ -47,13 +52,14 @@ const Blog = () => {
       <section>
         <h2 className="text-2xl font-semibold">Recent Posts</h2>
         <div className="grid gap-4 mt-4 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post, index) => (
-            <Card key={index}>
+          {posts.map((post) => (
+            <Card key={post.id}>
               <CardHeader>
                 <CardTitle>{post.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p>{post.content}</p>
+                <Button variant="destructive" onClick={() => handleDelete(post.id)} className="mt-4">Delete</Button>
               </CardContent>
             </Card>
           ))}
